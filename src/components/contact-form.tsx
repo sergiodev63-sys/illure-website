@@ -1,17 +1,17 @@
 "use client";
 
-import { useFormStatus } from "react-dom"; // useFormState removed
+import { useFormStatus } from "react-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { submitContactForm, type ContactFormState } from "@/app/actions";
+// import { submitContactForm, type ContactFormState } from "@/app/actions"; // Server Action desabilitada para Static Export
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { useEffect, useActionState } from "react"; // useActionState added
+import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { Phone, MessageSquare } from "lucide-react"; // Changed MapPin to MessageSquare for WhatsApp
+import { Phone, MessageSquare } from "lucide-react";
 
 const contactFormSchema = z.object({
   name: z.string().min(2, { message: "O nome deve ter pelo menos 2 caracteres." }),
@@ -21,18 +21,9 @@ const contactFormSchema = z.object({
 
 type ContactFormValues = z.infer<typeof contactFormSchema>;
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
-  return (
-    <Button type="submit" disabled={pending} className="w-full bg-primary hover:bg-primary/90 text-primary-foreground sm:w-auto">
-      {pending ? "Enviando..." : "Enviar Mensagem"}
-    </Button>
-  );
-}
-
 export function ContactForm() {
   const { toast } = useToast();
-  const [state, formAction] = useActionState<ContactFormState | undefined, FormData>(submitContactForm, undefined); // Changed to useActionState
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
@@ -43,21 +34,23 @@ export function ContactForm() {
     },
   });
 
-  useEffect(() => {
-    if (state?.success) {
-      toast({
-        title: "Sucesso!",
-        description: state.message,
-      });
-      form.reset(); 
-    } else if (state?.message && !state.success) {
-      toast({
-        title: "Erro",
-        description: state.message,
-        variant: "destructive",
-      });
-    }
-  }, [state, toast, form]);
+  const onSubmit = async (data: ContactFormValues) => {
+    setIsSubmitting(true);
+
+    // Simulação de envio (para Static Export)
+    // TODO: Integrar com Formspree ou reativar Server Action com App Hosting
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    console.log("Form data submitted:", data);
+
+    toast({
+      title: "Mensagem Enviada!",
+      description: "Recebemos sua mensagem. Simulação de envio bem sucedida (Modo Estático).",
+    });
+
+    form.reset();
+    setIsSubmitting(false);
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -68,7 +61,7 @@ export function ContactForm() {
         </p>
         <div className="space-y-4">
           <div className="flex items-center gap-3">
-            <MessageSquare className="h-5 w-5 text-primary" /> {/* Changed from Phone to MessageSquare for WhatsApp */}
+            <MessageSquare className="h-5 w-5 text-primary" />
             <a href="https://wa.me/55981151215" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-colors">
               Clique aqui e fale conosco! (WhatsApp)
             </a>
@@ -82,20 +75,17 @@ export function ContactForm() {
         </div>
       </div>
 
-      <form action={formAction} className="space-y-6 rounded-lg border border-border bg-card p-6 sm:p-8 shadow-lg">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 rounded-lg border border-border bg-card p-6 sm:p-8 shadow-lg">
         <div>
           <Label htmlFor="name" className="text-sm font-medium text-card-foreground">Nome Completo</Label>
           <Input
             id="name"
             {...form.register("name")}
             className="mt-1 bg-background"
-            aria-invalid={!!form.formState.errors.name || !!state?.errors?.name}
+            aria-invalid={!!form.formState.errors.name}
           />
           {form.formState.errors.name && (
             <p className="mt-1 text-sm text-destructive">{form.formState.errors.name.message}</p>
-          )}
-          {state?.errors?.name && (
-             <p className="mt-1 text-sm text-destructive">{state.errors.name[0]}</p>
           )}
         </div>
 
@@ -106,13 +96,10 @@ export function ContactForm() {
             type="email"
             {...form.register("email")}
             className="mt-1 bg-background"
-            aria-invalid={!!form.formState.errors.email || !!state?.errors?.email}
+            aria-invalid={!!form.formState.errors.email}
           />
           {form.formState.errors.email && (
             <p className="mt-1 text-sm text-destructive">{form.formState.errors.email.message}</p>
-          )}
-           {state?.errors?.email && (
-             <p className="mt-1 text-sm text-destructive">{state.errors.email[0]}</p>
           )}
         </div>
 
@@ -123,17 +110,16 @@ export function ContactForm() {
             {...form.register("message")}
             rows={5}
             className="mt-1 bg-background"
-            aria-invalid={!!form.formState.errors.message || !!state?.errors?.message}
+            aria-invalid={!!form.formState.errors.message}
           />
           {form.formState.errors.message && (
             <p className="mt-1 text-sm text-destructive">{form.formState.errors.message.message}</p>
           )}
-          {state?.errors?.message && (
-             <p className="mt-1 text-sm text-destructive">{state.errors.message[0]}</p>
-          )}
         </div>
-        
-        <SubmitButton />
+
+        <Button type="submit" disabled={isSubmitting} className="w-full bg-primary hover:bg-primary/90 text-primary-foreground sm:w-auto">
+          {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
+        </Button>
       </form>
     </div>
   );
