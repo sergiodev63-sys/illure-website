@@ -25,6 +25,10 @@ export function ContactForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // 🔴 COLOQUE AQUI O LINK DO SEU GOOGLE APPS SCRIPT (Web App URL)
+  // Será algo como: "https://script.google.com/macros/s/AKfycbx.../exec"
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzowbtKh9cYET5WV2zKY09Qho3lLJGiSnHL1ONIp70tbK6VOgIRM3WwLIzrA-B-Efly/exec";
+
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
@@ -37,19 +41,37 @@ export function ContactForm() {
   const onSubmit = async (data: ContactFormValues) => {
     setIsSubmitting(true);
 
-    // Simulação de envio (para Static Export)
-    // TODO: Integrar com Formspree ou reativar Server Action com App Hosting
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Verificacao removida pois URL ja esta configurada
 
-    console.log("Form data submitted:", data);
+    try {
+      // Envia para o Google Apps Script
+      // Usamos 'no-cors' porque o Google retorna um redirecionamento que o navegador bloquearia por segurança
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
 
-    toast({
-      title: "Mensagem Enviada!",
-      description: "Recebemos sua mensagem. Simulação de envio bem sucedida (Modo Estático).",
-    });
+      // Se o fetch não der erro de rede, assumimos que foi enviado com sucesso
+      toast({
+        title: "Mensagem Enviada!",
+        description: "Obrigado! Entraremos em contato em breve.",
+      });
+      form.reset();
 
-    form.reset();
-    setIsSubmitting(false);
+    } catch (error) {
+      console.error("Erro no envio:", error);
+      toast({
+        title: "Erro",
+        description: "Houve um problema ao enviar sua mensagem. Tente novamente mais tarde.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
