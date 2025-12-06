@@ -87,14 +87,14 @@ const rawProjectsData: Project[] = [
     title: 'Casa Marvin Grinn',
     category: 'Animatrônicos, Cenários Interativos e Wearables Personalizados',
     description: 'Criamos e desenvolvemos animatrônicos e wearables personalizados unindo storytelling do personagem Marvin Grinn, engenharia criativa e tecnologia interativa para entregar experiências únicas.',
-    imageUrl: '/images/18.png',
+    imageUrl: '/images/18.jpg',
     imageHint: 'Casa Marvin Grinn animatronics',
     details: {
       detailTitle: 'Casa Marvin Grinn',
       detailSubtitle: 'Animatrônicos, Cenários Interativos e Wearables Personalizados',
       detailText: ['Criamos e desenvolvemos animatrônicos e wearables personalizados unindo storytelling do personagem Marvin Grinn, engenharia criativa e tecnologia interativa para entregar experiências únicas.'],
-      detailImageUrl: '/images/18.png',
-      detailImageHint: 'Casa Marvin Grinn interaction',
+      detailImageUrl: '/images/animatonicos.mp4',
+      detailImageHint: 'Casa Marvin Grinn interaction video',
     },
   },
   {
