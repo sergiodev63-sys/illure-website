@@ -32,7 +32,7 @@ Write-Host ""
 
 # Configurar projeto
 Write-Host "⚙️  Verificando configuração do projeto..." -ForegroundColor Yellow
-firebase use illure-website
+firebase use illure-sm
 
 Write-Host ""
 
@@ -58,7 +58,7 @@ if ($LASTEXITCODE -ne 0) {
     Write-Host "      - Conecte ao GitHub e depois ao Firebase Console" -ForegroundColor White
     Write-Host ""
     Write-Host "   2. Ou acesse direto o Firebase Console:" -ForegroundColor Cyan
-    Write-Host "      https://console.firebase.google.com/u/1/project/illure-website/apphosting" -ForegroundColor Blue
+    Write-Host "      https://console.firebase.google.com/u/1/project/illure-sm/apphosting" -ForegroundColor Blue
     Write-Host ""
     exit 1
 }

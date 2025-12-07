@@ -29,4 +29,4 @@ git push -u origin main
 
 Write-Host "`n✅ Push concluído!" -ForegroundColor Green
 Write-Host "`nAgora você pode conectar o Firebase App Hosting ao seu repositório GitHub." -ForegroundColor Cyan
-Write-Host "Acesse: https://console.firebase.google.com/u/1/project/illure-website/apphosting" -ForegroundColor Blue
+Write-Host "Acesse: https://console.firebase.google.com/u/1/project/illure-sm/apphosting" -ForegroundColor Blue

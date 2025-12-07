@@ -75,7 +75,7 @@ if ($choice -eq "s" -or $choice -eq "S") {
         Write-Host "🎉 ÚLTIMO PASSO: Conectar ao Firebase App Hosting" -ForegroundColor Green
         Write-Host "═══════════════════════════════════════════════════════════" -ForegroundColor Cyan
         Write-Host ""
-        Write-Host "Acesse: https://console.firebase.google.com/u/1/project/illure-website/apphosting" -ForegroundColor Blue
+        Write-Host "Acesse: https://console.firebase.google.com/u/1/project/illure-sm/apphosting" -ForegroundColor Blue
         Write-Host ""
         Write-Host "No console:" -ForegroundColor Yellow
         Write-Host "  1. Clique em 'Get started' ou 'Create backend'" -ForegroundColor White
@@ -99,7 +99,7 @@ else {
     Write-Host "✅ OK! Use a OPÇÃO 2 (upload manual)" -ForegroundColor Green
     Write-Host ""
     Write-Host "Depois do upload, acesse:" -ForegroundColor Yellow
-    Write-Host "https://console.firebase.google.com/u/1/project/illure-website/apphosting" -ForegroundColor Blue
+    Write-Host "https://console.firebase.google.com/u/1/project/illure-sm/apphosting" -ForegroundColor Blue
 }
 
 Write-Host ""

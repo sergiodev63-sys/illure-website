@@ -33,7 +33,7 @@ Write-Host "4. Arraste o ZIP ou selecione os arquivos"
 Write-Host "5. Commit as alterações"
 Write-Host ""
 Write-Host "Depois de fazer upload, acesse:" -ForegroundColor Yellow
-Write-Host "https://console.firebase.google.com/u/1/project/illure-website/apphosting" -ForegroundColor Blue
+Write-Host "https://console.firebase.google.com/u/1/project/illure-sm/apphosting" -ForegroundColor Blue
 Write-Host ""
 Write-Host "Para tentar push agora com token, pressione Enter (ou Ctrl+C para cancelar)"
 Read-Host
@@ -52,7 +52,7 @@ if ($LASTEXITCODE -eq 0) {
     Write-Host "✅ Push realizado com sucesso!" -ForegroundColor Green
     Write-Host ""
     Write-Host "🎯 Próximo passo: Conectar ao Firebase App Hosting" -ForegroundColor Cyan
-    Write-Host "Acesse: https://console.firebase.google.com/u/1/project/illure-website/apphosting" -ForegroundColor Blue
+    Write-Host "Acesse: https://console.firebase.google.com/u/1/project/illure-sm/apphosting" -ForegroundColor Blue
 }
 else {
     Write-Host ""
